@@ -10,11 +10,37 @@ import org.eclipse.jakarta.jdbc.*;
 public class App {
 
 	public static void main(String[] args) {
+		//buscarUsuarios();
+		//inserirUsuarios();
+		atualizarUsuarios();
+	}
+
+	private static void buscarUsuarios() {
 		DAO dao = new DAO();
 		List<UsuarioDao> lista = dao.buscarUsuarios();
 		for(UsuarioDao usuarios : lista) {
 			System.out.println(usuarios.getIdcon() + " " + usuarios.getNome() + " " + usuarios.getFone() + " " + usuarios.getEmail());
-		}	
+		}
 	}
+	
+	private static void inserirUsuarios() {
+		DAO dao = new DAO();
+		UsuarioDao ud = new UsuarioDao();
+		ud.setNome("Carla");
+		ud.setFone("(33) 8998-33421");
+		ud.setEmail("catla@gmail.com");
+		dao.inserirUsuarios(ud);
+	}
+	
+	private static void atualizarUsuarios() {
+		DAO dao = new DAO();
+		UsuarioDao ud = new UsuarioDao();
+		ud.setNome("Carla");
+		ud.setFone("(33) 8998-33421");
+		ud.setEmail("catla@gmail.com");
+		ud.setIdcon(15);
+		dao.atualizarUsuarios(ud);
+	}
+	
 
 }

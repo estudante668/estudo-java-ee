@@ -35,4 +35,37 @@ public class DAO {
 		return listUsuario;
 		
 	}
+	
+	public static void inserirUsuarios(UsuarioDao usuarios) {
+		
+		Connection con = Conector.conexao();
+		String sql = "Insert into contatos (nome,fone,email) values (?,?,?)";
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, usuarios.getNome());
+			ps.setString(2, usuarios.getFone());
+			ps.setString(3, usuarios.getEmail());
+			ps.executeUpdate();
+			System.out.println("Dados inseridos");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void atualizarUsuarios(UsuarioDao usuarios) {
+		  
+		Connection con = Conector.conexao();
+		String sql = "Update contatos set nome=?,fone=?,email=? where idcon=?";
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, usuarios.getNome());
+			ps.setString(2, usuarios.getFone());
+			ps.setString(3, usuarios.getEmail());
+			ps.setInt(4, usuarios.getIdcon());
+			ps.executeUpdate();
+			System.out.println("Dados atualizados");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

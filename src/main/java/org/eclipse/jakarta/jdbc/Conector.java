@@ -9,10 +9,9 @@ public class Conector {
 	public static Connection conexao() {
 		Connection con = null;
 		try {
-			 con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/bdagenda", "postgres", "");
+			 con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/bdagenda", "postgres", "1cbt89q");
 			 System.out.println("sucesso");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return con;
