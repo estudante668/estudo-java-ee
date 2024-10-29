@@ -12,7 +12,30 @@ public class App {
 	public static void main(String[] args) {
 		//buscarUsuarios();
 		//inserirUsuarios();
-		atualizarUsuarios();
+		//atualizarUsuarios();'
+		//deletarUsuario();
+		//buscarPorId();	
+		autenticador();
+	}
+
+	private static void autenticador() {
+		DAO dao = new DAO();
+		UsuarioDao usuario = new UsuarioDao();
+		usuario.setNome("vvv");
+		usuario.setEmail("v@gmail.com");
+		UsuarioDao aluno =	dao.autenticador(usuario);
+		   System.out.println("Id do aluno requerido: " + aluno.getIdcon() + " - " + "Telefone do aluno requerido: " + aluno.getFone());
+	}
+	
+	private static void buscarPorId() {
+		DAO dao = new DAO();
+		UsuarioDao usuario = dao.selecionarId(12);
+	   System.out.println(usuario.getIdcon() + " " + usuario.getNome());
+	}
+	
+	private static void deletarUsuario() {
+		DAO dao = new DAO();
+		dao.deletarUsuarios(16);
 	}
 
 	private static void buscarUsuarios() {
@@ -38,9 +61,7 @@ public class App {
 		ud.setNome("Carla");
 		ud.setFone("(33) 8998-33421");
 		ud.setEmail("catla@gmail.com");
-		ud.setIdcon(15);
+		ud.setIdcon(7);
 		dao.atualizarUsuarios(ud);
 	}
-	
-
 }

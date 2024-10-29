@@ -2,6 +2,7 @@ package org.eclipse.jakarta.jdbc;
 
 import org.eclipse.jakarta.jdbc.*;
 
+import java.nio.file.attribute.UserDefinedFileAttributeView;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -68,4 +69,91 @@ public class DAO {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void deletarUsuarios(Integer id) {
+		
+		Connection con = Conector.conexao();
+		String sql = "Delete from contatos where idcon=?";
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, id);
+			ps.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+   
+   public UsuarioDao selecionarId(Integer id) {
+ 		Connection con = Conector.conexao();
+ 		String sql = "select  * from contatos where idcon=?";
+ 		UsuarioDao ud = null;
+ 		try {
+ 			PreparedStatement ps = con.prepareStatement(sql);
+ 			ps.setInt(1, id);
+ 			ResultSet rs = ps.executeQuery();
+ 		if(rs.next()) {
+ 				ud = new UsuarioDao();
+ 				ud.setIdcon(rs.getInt("idcon"));
+ 			    ud.setNome(rs.getString("nome"));	
+ 				ud.setFone(rs.getString("fone"));	
+ 				ud.setEmail(rs.getString("email"));
+ 				}
+ 		} catch (SQLException e) {
+ 			e.printStackTrace();
+ 		}
+ 		return ud;
+ 	}
+   
+   /*public UsuarioDao selecionarIds(Integer id) {
+		Connection con = Conector.conexao();
+		String sql = "select  * from contatos where idcon=?";
+		UsuarioDao ud = null;
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+		while(rs.next()) {
+				ud = new UsuarioDao();
+				int uu = rs.getInt("idcon");
+				if(id == uu) {
+					ud.setIdcon(rs.getInt("idcon"));
+				    ud.setNome(rs.getString("nome"));	
+					ud.setFone(rs.getString("fone"));	
+					ud.setEmail(rs.getString("email"));
+				} 
+					System.out.println("ID não exiteppppp");
+				
+				}
+		} catch (SQLException e) {
+			System.out.println("ID não exite: " + e);
+		}
+		return ud;
+	}*/
+   
+   public UsuarioDao autenticador(UsuarioDao user) {
+	   Connection con = Conector.conexao();
+		String sql = "select  * from contatos where nome=? and email=?";
+		UsuarioDao ud = null;
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, user.getNome());
+			ps.setString(2, user.getEmail());
+			ResultSet rs = ps.executeQuery();
+		while(rs.next()) {
+				ud = new UsuarioDao();
+				String nome = rs.getString("nome");
+				String email = rs.getString("email");
+				if(nome.equals(user.getNome()) && email.equals(user.getEmail())) {
+					ud.setIdcon(rs.getInt("idcon"));
+				    ud.setNome(rs.getString("nome"));	
+					ud.setFone(rs.getString("fone"));	
+					ud.setEmail(rs.getString("email"));
+				} 
+				}
+		} catch (SQLException e) {
+			System.out.println("ID não exite: " + e);
+		}
+		return ud;
+   }
 }
