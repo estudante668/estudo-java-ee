@@ -21,10 +21,10 @@ public class App {
 	private static void autenticador() {
 		DAO dao = new DAO();
 		UsuarioDao usuario = new UsuarioDao();
-		usuario.setNome("vvv");
-		usuario.setEmail("v@gmail.com");
+		usuario.setLogin("vava");
+		usuario.setSenha(317);
 		UsuarioDao aluno =	dao.autenticador(usuario);
-		   System.out.println("Id do aluno requerido: " + aluno.getIdcon() + " - " + "Telefone do aluno requerido: " + aluno.getFone());
+		   System.out.println("Id do aluno requerido: " + aluno.getIdcon() + "\n" + "Nome do aluno requerido: " + aluno.getNome() + "\n" + "Email: " + aluno.getEmail());
 	}
 	
 	private static void buscarPorId() {
@@ -49,10 +49,12 @@ public class App {
 	private static void inserirUsuarios() {
 		DAO dao = new DAO();
 		UsuarioDao ud = new UsuarioDao();
-		ud.setNome("Carla");
-		ud.setFone("(33) 8998-33421");
-		ud.setEmail("catla@gmail.com");
-		dao.inserirUsuarios(ud);
+		ud.setNome("Vantuir");
+		ud.setFone("(11) 3788-2234");
+		ud.setEmail("brnl@gmail.com");
+		ud.setLogin("vava");
+		ud.setSenha(317);
+		dao.inserirUsuarios(ud); 
 	}
 	
 	private static void atualizarUsuarios() {

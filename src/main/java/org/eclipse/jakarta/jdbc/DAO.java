@@ -26,6 +26,8 @@ public class DAO {
 			    ud.setNome(rs.getString("nome"));	
 			    ud.setFone(rs.getString("fone"));	
 			    ud.setEmail(rs.getString("email"));
+			    ud.setLogin(rs.getString("login"));
+			    ud.setSenha(rs.getInt("senha"));
 			    listUsuario.add(ud);
 		    }
 		} catch (SQLException e) {
@@ -40,12 +42,14 @@ public class DAO {
 	public static void inserirUsuarios(UsuarioDao usuarios) {
 		
 		Connection con = Conector.conexao();
-		String sql = "Insert into contatos (nome,fone,email) values (?,?,?)";
+		String sql = "Insert into contatos (nome,fone,email,login,senha) values (?,?,?,?,?)";
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, usuarios.getNome());
 			ps.setString(2, usuarios.getFone());
 			ps.setString(3, usuarios.getEmail());
+			ps.setString(4, usuarios.getLogin());
+			ps.setInt(5, usuarios.getSenha());
 			ps.executeUpdate();
 			System.out.println("Dados inseridos");
 		} catch (SQLException e) {
@@ -133,18 +137,18 @@ public class DAO {
    
    public UsuarioDao autenticador(UsuarioDao user) {
 	   Connection con = Conector.conexao();
-		String sql = "select  * from contatos where nome=? and email=?";
+		String sql = "select  * from contatos where login=? and senha=?";
 		UsuarioDao ud = null;
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setString(1, user.getNome());
-			ps.setString(2, user.getEmail());
+			ps.setString(1, user.getLogin());
+			ps.setInt(2, user.getSenha());
 			ResultSet rs = ps.executeQuery();
 		while(rs.next()) {
 				ud = new UsuarioDao();
-				String nome = rs.getString("nome");
-				String email = rs.getString("email");
-				if(nome.equals(user.getNome()) && email.equals(user.getEmail())) {
+				String login = rs.getString("login");
+				Integer senha = rs.getInt("senha");
+				if(login.equals(user.getLogin()) && senha.equals(user.getSenha())) {
 					ud.setIdcon(rs.getInt("idcon"));
 				    ud.setNome(rs.getString("nome"));	
 					ud.setFone(rs.getString("fone"));	
@@ -155,5 +159,28 @@ public class DAO {
 			System.out.println("ID não exite: " + e);
 		}
 		return ud;
+   }
+   
+   public List<UsuarioDao> buscarPorNome(String nome){
+	   Connection con = Conector.conexao();
+		String sql = "select  * from contatos where nome like ?";
+		List<UsuarioDao> lista = new ArrayList<UsuarioDao>();
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, "%"+nome+"%");
+			ResultSet rs = ps.executeQuery();
+		while(rs.next()) {
+			UsuarioDao ud = new UsuarioDao();
+				ud.setIdcon(rs.getInt("idcon"));
+			    ud.setNome(rs.getString("nome"));	
+				ud.setFone(rs.getString("fone"));	
+				ud.setEmail(rs.getString("email"));
+				lista.add(ud);
+				}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return lista;
+	   
    }
 }
