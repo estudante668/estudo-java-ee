@@ -22,7 +22,7 @@ public class App {
 		DAO dao = new DAO();
 		UsuarioDao usuario = new UsuarioDao();
 		usuario.setLogin("vava");
-		usuario.setSenha(317);
+		usuario.setSenha(310);
 		UsuarioDao aluno =	dao.autenticador(usuario);
 		   System.out.println("Id do aluno requerido: " + aluno.getIdcon() + "\n" + "Nome do aluno requerido: " + aluno.getNome() + "\n" + "Email: " + aluno.getEmail());
 	}
