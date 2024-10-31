@@ -1,8 +1,6 @@
 package org.eclipse.jakarta.jdbc;
 
 import org.eclipse.jakarta.jdbc.*;
-
-import java.nio.file.attribute.UserDefinedFileAttributeView;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,8 +22,6 @@ public class DAO {
 		    UsuarioDao ud = new UsuarioDao();
 			    ud.setIdcon(rs.getInt("idcon"));
 			    ud.setNome(rs.getString("nome"));	
-			    ud.setFone(rs.getString("fone"));	
-			    ud.setEmail(rs.getString("email"));
 			    ud.setLogin(rs.getString("login"));
 			    ud.setSenha(rs.getInt("senha"));
 			    listUsuario.add(ud);
@@ -36,36 +32,39 @@ public class DAO {
 		}
 		
 		return listUsuario;
-		
 	}
 	
 	public static void inserirUsuarios(UsuarioDao usuarios) {
-		
 		Connection con = Conector.conexao();
-		String sql = "Insert into contatos (nome,fone,email,login,senha) values (?,?,?,?,?)";
+		String sql = "Insert into contatos (nome,login,senha) values (?,?,?)";
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, usuarios.getNome());
-			ps.setString(2, usuarios.getFone());
-			ps.setString(3, usuarios.getEmail());
-			ps.setString(4, usuarios.getLogin());
-			ps.setInt(5, usuarios.getSenha());
+			ps.setString(2, usuarios.getLogin());
+			ps.setInt(3, usuarios.getSenha());
 			ps.executeUpdate();
 			System.out.println("Dados inseridos");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
+
+	public static void salvar(UsuarioDao usuario) {
+		   if(usuario.getIdcon() != null && usuario.getIdcon() != 0) {
+			   atualizarUsuarios(usuario);
+			} else {
+				inserirUsuarios(usuario);
+			}
+	   }
 	
-	public static void atualizarUsuarios(UsuarioDao usuarios) {
-		  
+	public static void atualizarUsuarios(UsuarioDao usuarios) {	  
 		Connection con = Conector.conexao();
-		String sql = "Update contatos set nome=?,fone=?,email=? where idcon=?";
+		String sql = "Update contatos set nome=?,login=?,senha=? where idcon=?";
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, usuarios.getNome());
-			ps.setString(2, usuarios.getFone());
-			ps.setString(3, usuarios.getEmail());
+			ps.setString(2, usuarios.getLogin());
+			ps.setInt(3, usuarios.getSenha());
 			ps.setInt(4, usuarios.getIdcon());
 			ps.executeUpdate();
 			System.out.println("Dados atualizados");
@@ -75,7 +74,6 @@ public class DAO {
 	}
 	
 	public static void deletarUsuarios(Integer id) {
-		
 		Connection con = Conector.conexao();
 		String sql = "Delete from contatos where idcon=?";
 		try {
@@ -100,8 +98,6 @@ public class DAO {
  				ud = new UsuarioDao();
  				ud.setIdcon(rs.getInt("idcon"));
  			    ud.setNome(rs.getString("nome"));	
- 				ud.setFone(rs.getString("fone"));	
- 				ud.setEmail(rs.getString("email"));
  				}
  		} catch (SQLException e) {
  			e.printStackTrace();
@@ -151,8 +147,7 @@ public class DAO {
 				if(login.equals(user.getLogin()) && senha.equals(user.getSenha())) {
 					ud.setIdcon(rs.getInt("idcon"));
 				    ud.setNome(rs.getString("nome"));	
-					ud.setFone(rs.getString("fone"));	
-					ud.setEmail(rs.getString("email"));
+					
 				} 
 				}
 		} catch (SQLException e) {
@@ -173,14 +168,11 @@ public class DAO {
 			UsuarioDao ud = new UsuarioDao();
 				ud.setIdcon(rs.getInt("idcon"));
 			    ud.setNome(rs.getString("nome"));	
-				ud.setFone(rs.getString("fone"));	
-				ud.setEmail(rs.getString("email"));
 				lista.add(ud);
 				}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return lista;
-	   
+		return lista;   
    }
 }

@@ -4,8 +4,6 @@ public class UsuarioDao {
 
 	Integer idcon;
 	String nome;
-	String fone;
-	String email;
 	Integer senha;
 	String login;
 	
@@ -29,22 +27,6 @@ public class UsuarioDao {
 		this.nome = nome;
 	}
 
-	public String getFone() {
-		return fone;
-	}
-
-	public void setFone(String fone) {
-		this.fone = fone;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	public Integer getSenha() {
 		return senha;
 	}
@@ -60,4 +42,5 @@ public class UsuarioDao {
 	public void setLogin(String login) {
 		this.login = login;
 	}
+
 }
