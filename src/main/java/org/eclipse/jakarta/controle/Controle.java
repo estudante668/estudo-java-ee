@@ -1,6 +1,7 @@
 package org.eclipse.jakarta.controle;
 
 import jakarta.servlet.ServletException;
+import  java.util.List;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,7 +17,7 @@ import org.eclipse.jakarta.jdbc.UsuarioDao;
 /**
  * Servlet implementation class Controle
  */
-@WebServlet("/controlador")
+@WebServlet("/controlador") 
 public class Controle extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
@@ -30,11 +31,18 @@ public class Controle extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String nome = request.getParameter("nome");
+     
+		List<UsuarioDao>listaUser = dao.buscarUsuarios();
+	    for(UsuarioDao user : listaUser) {
+	    	PrintWriter saida = response.getWriter();
+	    	System.out.println("Id: " + user.getIdcon() + " Nome: " + user.getNome() + " Login: " + user.getLogin());
+	    	//saida.println("Id: " + user.getIdcon() + " Nome: " + user.getNome() + " Login: " + user.getLogin());
+	    }
+		/*String nome = request.getParameter("nome");
         String emp = request.getParameter("emp");
         
         PrintWriter saida = response.getWriter();
-        saida.println("Nome:" + nome + " Empresa: " + emp);
+        saida.println("Nome:" + nome + " Empresa: " + emp);*/
 	}
 
 	/**
