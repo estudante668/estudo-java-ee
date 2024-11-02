@@ -1,5 +1,6 @@
 package org.eclipse.jakarta.jdbc;
 
+import org.eclipse.jakarta.entidades.UsuarioDao;
 import org.eclipse.jakarta.jdbc.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -80,6 +81,7 @@ public class DAO {
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setInt(1, id);
 			ps.execute();
+			System.out.println("Dados excluidos");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

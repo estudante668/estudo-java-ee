@@ -1,4 +1,4 @@
-package org.eclipse.jakarta.jdbc;
+package org.eclipse.jakarta.entidades;
 
 public class UsuarioDao {
 
