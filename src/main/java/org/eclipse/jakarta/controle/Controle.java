@@ -37,6 +37,8 @@ public class Controle extends HttpServlet {
 		    dao.deletarUsuarios(user.getIdcon());
 		}
 		
+		
+		
 		List<UsuarioDao>listaUser = dao.buscarUsuarios();
 	
 		request.setAttribute("usuarios", listaUser);
@@ -55,12 +57,29 @@ public class Controle extends HttpServlet {
 		
 		System.out.println("METODO POST");
 		
+		
 		String id = request.getParameter("txtidcon");
 		String nome = request.getParameter("txtnome");
 		String login = request.getParameter("txtlogin");
 		String senha = request.getParameter("txtsenha");
 		
-		//PrintWriter saida = response.getWriter();
+		
+		String acao = request.getParameter("acao");
+		System.out.println("param: " + acao);
+		if(acao != null && acao.equals("alterar")) {
+			UsuarioDao usuario = new UsuarioDao();
+			usuario.setIdcon(Integer.parseInt(id));
+			usuario.setNome(nome);
+			usuario.setLogin(login);
+			usuario.setSenha(Integer.parseInt(senha));
+		
+		    dao.atualizarUsuarios(usuario);
+		
+		}
+	
+		
+		
+		/*	//PrintWriter saida = response.getWriter();
 		//saida.println(txtnome +"  "+txtsenha);
 		UsuarioDao usuario = new UsuarioDao();
 		usuario.setNome(nome);
@@ -74,7 +93,7 @@ public class Controle extends HttpServlet {
 		dao.salvar(usuario); 
 		
 		PrintWriter saida = response.getWriter();
-		saida.println("Dados cadastrados");
+		saida.println("Dados cadastrados");*/
 	}
 
 }

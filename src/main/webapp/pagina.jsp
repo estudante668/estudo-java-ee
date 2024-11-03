@@ -27,6 +27,7 @@ for(UsuarioDao listaDao : listaUser){
    <td><%= listaDao.getLogin() %></td>
    <td><%= listaDao.getSenha() %></td>
    <td><a href="controlador?acao=exc&id=<%= listaDao.getIdcon() %>">Excluir</a></td>
+ <td><a href="index.html?acao=alterar&id=<%= listaDao.getIdcon() %>">Alterar</a></td>
 </tr>
 <%
 } 
