@@ -46,8 +46,21 @@ public class Controle extends HttpServlet {
 			RequestDispatcher despachar = request.getRequestDispatcher("formulario.jsp");
 		    despachar.forward(request, response);
 		} 
+        
+		if (acao != null && acao.equals("cad")) {
 			
-	     if(acao.equals("lista")) {
+			
+			UsuarioDao ususario = new UsuarioDao();
+			ususario.setIdcon(0);
+			ususario.setNome("");
+			ususario.setLogin("");
+			ususario.setSenha(0);
+			request.setAttribute("user", ususario);
+			RequestDispatcher despachar = request.getRequestDispatcher("formulario.jsp");
+		    despachar.forward(request, response);
+		}
+			
+	    if (acao.equals("lista")) {
 			
 			List<UsuarioDao>listaUser = dao.buscarUsuarios();
 			request.setAttribute("usuarios", listaUser);
